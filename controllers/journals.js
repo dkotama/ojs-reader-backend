@@ -8,8 +8,8 @@ journalCtrl.list = (req, res) => {
               exclude: ['createdAt', 'updatedAt']
             }
           })
-          .then((journals) => res.status(200).send(journals)
-          .catch((err) => res.status(400).send({})));
+          .then((journals) => res.status(200).send(journals))
+          .catch((err) => res.status(400).send({}));
 }
 
 module.exports = journalCtrl
