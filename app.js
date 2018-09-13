@@ -10,6 +10,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/covers', express.static(__dirname + '/public/images/covers/'));
+app.use('/pdf', express.static(__dirname + '/public/pdf/'));
 
 // APP_TOKEN = process.env.APP_TOKEN;
 

@@ -19,9 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  // League.associate = (models) => {
-  //   League.hasMany(models.Match);
-  // };
+  Journal.associate = (models) => {
+    Journal.hasMany(models.issues, {as: "issues", foreignKey: "journal_id"});
+  };
 
   return Journal;
 };
