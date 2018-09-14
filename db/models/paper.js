@@ -21,10 +21,18 @@ module.exports = (sequelize, DataTypes) => {
     url: {
       type: DataTypes.STRING,
     }
+  }, {
+    timestamps: false
   });
 
   Paper.associate = (models) => {
     Paper.belongsTo(models.issues, {foreignKey: "issue_id"});
+    Paper.belongsToMany(models.users, {
+      as: "Followers", 
+      through: models.users_papers,
+      foreignKey: "paper_id",
+      otherKey: "user_id"
+    });
   };
 
   return Paper;

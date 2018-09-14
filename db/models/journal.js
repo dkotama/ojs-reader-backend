@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true
     }
+  }, {
+    defaultScope: {
+      attributes: { exclude: ["createdAt", "updatedAt"] }
+    }
   });
 
   Journal.associate = (models) => {

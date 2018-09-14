@@ -27,6 +27,7 @@ fs
   .forEach(file => {
     const model = sequelize.import(path.join(__dirname, file));
     db[model.name] = model;
+    console.log("Registered Model: " + model.name )
   });
 
 
@@ -36,7 +37,6 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
-// sequelize.sync({ logging: true });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

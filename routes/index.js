@@ -1,5 +1,7 @@
 const journalCtrl = require("../controllers").journals;
 const issueCtrl = require("../controllers").issues;
+const favCtrl = require("../controllers").favourites;
+const mw = require("../middlewares/middleware");
 
 module.exports = (app) => {
   console.log('Starting at ' + process.env.PORT +' with ENV: ' + process.env.NODE_ENV);
@@ -15,5 +17,12 @@ module.exports = (app) => {
 
   //Issue
   app.get('/api/issues', issueCtrl.list);
+  // app.post('/api/leagues',  authorize, leagueCtrl.create);
+
+  //Issue
+  // app.get('/api/', favCtrl.list);
+  app.get('/api/favourites', mw.userCheck , favCtrl.list);
+  app.post('/api/favourites', mw.userCheck, favCtrl.add);
+  app.delete('/api/favourites', mw.userCheck, favCtrl.remove);
   // app.post('/api/leagues',  authorize, leagueCtrl.create);
 }

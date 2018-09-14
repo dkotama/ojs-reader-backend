@@ -1,5 +1,7 @@
 'use strict';
 
+const Promis = require('bluebird');
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     var insertData = [];
@@ -8,10 +10,12 @@ module.exports = {
     var randMonth = ['Januari','Februari', 'Maret',
                      'April', 'Mei', 'Juni', 'Juli',
                      'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    var id = 1;
 
     for (var j = 1; j <= maxJournals; j++) { 
       for (var i = 1; i <= minimumIssue; i++) { 
         var issue = {};
+        issue.id = id;
         issue.volume = i;
         issue.number = i;
         issue.year = 2018;
@@ -21,6 +25,7 @@ module.exports = {
         issue.journal_id = j;
 
         insertData.push(issue);
+        id++;
       }
     }
 
@@ -28,12 +33,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkDelete('Person', null, {});
-    */
+      return queryInterface.bulkDelete('issues', null, {});
   }
 };

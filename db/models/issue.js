@@ -34,6 +34,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATEONLY,
       allowNull: true
     }
+  }, {
+    defaultScope: {
+      attributes: { exclude: ["createdAt", "updatedAt"] }
+    }
   });
 
   Issue.associate = (models) => {
