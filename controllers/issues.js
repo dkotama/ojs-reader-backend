@@ -2,18 +2,20 @@ const Issue = require("../db/models").issues;
 const Paper = require("../db/models").papers;
 const issueCtrl = {}
 
-issueCtrl.list = (req, res) => {
+issueCtrl.listByJournal = (req, res) => {
   return Issue.findAll({
+            where: {
+              journal_id: req.params.journalID
+            },
             include:[
               {
                 model: Paper,
-                attributes: {exclude: ['issue_id', 'createdAt', 'updatedAt']},
+                attributes: {
+                  exclude: ['issue_id', 'createdAt', 'updatedAt']
+                },
                 as: 'papers'
               }
-            ],
-            attributes: {
-              exclude: ['createdAt', 'updatedAt']
-            }
+            ]
           })
           .then((results) => res.status(200).send(results))
           .catch((err) =>

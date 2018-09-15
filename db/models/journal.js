@@ -18,13 +18,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     }
   }, {
-    defaultScope: {
-      attributes: { exclude: ["createdAt", "updatedAt"] }
-    }
+    timestamps: false
+    // defaultScope: {
+    //   attributes: { exclude: ["createdAt", "updatedAt"] }
+    // }
   });
 
   Journal.associate = (models) => {
-    Journal.hasMany(models.issues, {as: "issues", foreignKey: "journal_id"});
+    Journal.hasMany(models.issues, {foreignKey: "journal_id"});
   };
 
   return Journal;

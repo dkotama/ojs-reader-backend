@@ -1,6 +1,9 @@
 const journalCtrl = require("../controllers").journals;
 const issueCtrl = require("../controllers").issues;
 const favCtrl = require("../controllers").favourites;
+const paperCtrl = require("../controllers").papers;
+const memberCtrl = require("../controllers").members;
+
 const mw = require("../middlewares/middleware");
 
 module.exports = (app) => {
@@ -10,19 +13,21 @@ module.exports = (app) => {
 
   //Journal
   app.get('/api/journals', journalCtrl.list);
-  // app.post('/api/leagues',  authorize, leagueCtrl.create);
-  // app.get('/api/leagues/:leagueId',  authorize, leagueCtrl.retrieve);
-  // app.put('/api/leagues/:leagueId',  authorize, leagueCtrl.update);
-  // app.delete('/api/leagues/:leagueId', authorize, leagueCtrl.destroy);
+  app.get('/api/journals/:journalID', journalCtrl.retrieve);
+  app.get('/api/journals/:journalID/latest', journalCtrl.latestIssue);
 
   //Issue
-  app.get('/api/issues', issueCtrl.list);
-  // app.post('/api/leagues',  authorize, leagueCtrl.create);
+  app.get('/api/issues/:journalID', issueCtrl.listByJournal);
 
-  //Issue
-  // app.get('/api/', favCtrl.list);
+  //Paper
+  app.get('/api/papers/:paperID', paperCtrl.retrieve);
+
+  //Favorites
   app.get('/api/favourites', mw.userCheck , favCtrl.list);
   app.post('/api/favourites', mw.userCheck, favCtrl.add);
   app.delete('/api/favourites', mw.userCheck, favCtrl.remove);
-  // app.post('/api/leagues',  authorize, leagueCtrl.create);
+
+  //Members
+  app.post('/api/login', memberCtrl.login);
+  app.post('/api/register', memberCtrl.register);
 }
