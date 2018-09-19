@@ -21,7 +21,7 @@ journalCtrl.list = (req, res) => {
       }
 
       var response = {};
-      response.page = page;
+      response.page = parseInt(page);
       response.journals = result.rows;
 
       res.status(200).send(c.makeResponse(response, null));
